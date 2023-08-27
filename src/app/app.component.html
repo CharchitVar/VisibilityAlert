@@ -1,4 +1,79 @@
-<button (click)="calculateBearingAngle()">Calculate Bearing Angle</button>
-Current Latitude {{currentLat}}
-Current Longitude {{currentLng}}
-Heading {{heading}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Road Visibility App</title>
+
+  <!-- Import Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Visibility Alert App.. Happy Journey !!</h2>
+
+  <div class="input-section row">
+    <div class="col-md-6 mb-2">
+      <label for="distanceInput">Enter the Approx Distance You wish to Cover</label>
+      <input type="text" class="form-control" id="distanceInput" placeholder="Default is 10 KM" [(ngModel)]="distance" (ngModelChange)="onDistanceChange($event)">
+    </div>
+
+    <div class="col-md-6 d-flex align-items-end">
+      <button class="btn btn-primary btn-block" (click)="calculateStart()">Calculate Visibility</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading; else responseSection" class="text-center mt-4">
+    <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem;">
+      <span class="sr-only">Loading...</span>
+    </div>
+   
+  </div>
+
+  <ng-template #responseSection>
+    <div *ngIf="firstResponseCame" class="response-section mt-4">
+      <div class="info-row">
+        <span class="info-label">Current Latitude:</span> {{ currentLat }}
+      </div>
+      <div class="info-row">
+        <span class="info-label">Current Longitude:</span> {{ currentLng }}
+      </div>
+      <div class="info-row">
+        <span class="info-label">Heading:</span> {{ heading }}
+    
+      </div>
+      <div class="info-row">
+        
+        <span class="info-label">Moving Direction:</span> {{ movingDirection }}
+      </div>
+
+      <p *ngIf="newCoords" class="new-coords">
+        New Coordinates: Lat: {{ newCoords.latitude }}, Lng: {{ newCoords.longitude }}
+      </p>
+
+      <div class="visibility-result">
+        Visibility after {{ distance }} km in Area called {{ areaName }} is {{ visibility }} km
+      </div>
+
+      <div *ngIf="visibility < 11" class="warning-message mt-3">
+        Drive Slowly. It is very Foggy out there. Use Fog Headlights.
+      </div>
+
+      <button class="btn btn-primary mt-3 btn-block" (click)="clickHomePage()">Go to Home Page</button>
+    </div>
+    <div *ngIf="isError" class="response-section mt-4">
+        <div class="info-row">
+            <span class="warning-message mt-3">{{errorMessage}}</span>
+          </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Import Bootstrap JavaScript and jQuery (optional) -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+</body>
+</html>

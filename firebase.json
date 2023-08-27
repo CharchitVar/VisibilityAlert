@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/visibility-alert-mechanism",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
