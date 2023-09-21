@@ -7,67 +7,122 @@
 
   <!-- Import Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Import Font Awesome for the compass icon (you can use other icon libraries if preferred) -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+  <!-- Custom CSS -->
+  <style>
+body {
+      background-image: url('../assets/pexels-alex-andrews-1203808.jpg'); /* Add your background image path here */
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: white;
+      margin: 0; /* Remove default margin */
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Center container vertically */
+    }
+
+    .app-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      max-width: 400px; /* Adjust as needed */
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .visibility-result {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+
+    .compass {
+      font-size: 32px;
+      margin-top: 10px;
+    }
+
+    .warning-message {
+      font-size: 18px;
+      color: #ffcc00; /* Yellow color for warnings */
+    }
+
+    /* Style the button with a golden color */
+    .btn-primary {
+      background-color: #FFD700 !important; /* Golden color */
+      border: none;
+      color: white;
+    }
+
+    /* Hover effect for the button */
+    .btn-primary:hover {
+      background-color: #FFC800 !important; /* Slightly lighter golden color on hover */
+    }
+
+    /* Adjust the button width for responsiveness */
+    .btn-primary.btn-block {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container mt-5">
-  <h2 class="mb-4 text-center">Visibility Alert App.. Happy Journey !!</h2>
+<div class="container">
+  <div class="app-box mt-5">
+    <h2 class="mb-4">Visibility Alert App - Happy Journey!</h2>
 
-  <div class="input-section row">
-    <div class="col-md-6 mb-2">
-      <label for="distanceInput">Enter the Approx Distance You wish to Cover</label>
-      <input type="text" class="form-control" id="distanceInput" placeholder="Default is 10 KM" [(ngModel)]="distance" (ngModelChange)="onDistanceChange($event)">
+    <ng-container *ngIf="!firstResponseCame">
+    <div class="input-section">
+      <label for="distanceInput">Enter the Approx Distance You Wish to Cover</label>
+      <input type="tel" inputmode="numeric" class="form-control" id="distanceInput" placeholder="Default is 10 KM" [(ngModel)]="distance">
     </div>
 
-    <div class="col-md-6 d-flex align-items-end">
-      <button class="btn btn-primary btn-block" (click)="calculateStart()">Calculate Visibility</button>
+    <div class="input-section">
+      <button class="btn btn-primary btn-block mt-3" (click)="calculateStart()">Calculate Visibility</button>
     </div>
-  </div>
+  </ng-container>
 
-  <div *ngIf="loading; else responseSection" class="text-center mt-4">
-    <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem;">
-      <span class="sr-only">Loading...</span>
+    <div *ngIf="loading; else responseSection" class="text-center mt-4">
+      <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem;">
+        <span class="sr-only">Loading...</span>
+      </div>
     </div>
-   
-  </div>
 
-  <ng-template #responseSection>
-    <div *ngIf="firstResponseCame" class="response-section mt-4">
-      <div class="info-row">
-        <span class="info-label">Current Latitude:</span> {{ currentLat }}
-      </div>
-      <div class="info-row">
-        <span class="info-label">Current Longitude:</span> {{ currentLng }}
-      </div>
-      <div class="info-row">
-        <span class="info-label">Heading:</span> {{ heading }}
-    
-      </div>
-      <div class="info-row">
-        
-        <span class="info-label">Moving Direction:</span> {{ movingDirection }}
-      </div>
-
-      <p *ngIf="newCoords" class="new-coords">
-        New Coordinates: Lat: {{ newCoords.latitude }}, Lng: {{ newCoords.longitude }}
-      </p>
-
-      <div class="visibility-result">
-        Visibility after {{ distance }} km in Area called {{ areaName }} is {{ visibility }} km
-      </div>
-
-      <div *ngIf="visibility < 11" class="warning-message mt-3">
-        Drive Slowly. It is very Foggy out there. Use Fog Headlights.
-      </div>
-
-      <button class="btn btn-primary mt-3 btn-block" (click)="clickHomePage()">Go to Home Page</button>
-    </div>
-    <div *ngIf="isError" class="response-section mt-4">
+    <ng-template #responseSection>
+      <div *ngIf="firstResponseCame" class="response-section mt-4">
+        <!-- Add a compass icon to indicate the user's direction -->
+        <div class="compass">
+          <i class="fas fa-compass"></i> {{ movingDirection }}
+        </div>
         <div class="info-row">
-            <span class="warning-message mt-3">{{errorMessage}}</span>
-          </div>
-    </div>
-  </ng-template>
+          <span class="info-label">Heading:</span> {{ heading }}
+        </div>
+
+        <!-- Visibility and warning messages -->
+        <div class="visibility-result">
+          Visibility after {{ distance }} km in Area called {{ areaName }} is {{ visibility }} km
+        </div>
+
+        <div *ngIf="visibility < 11" class="warning-message mt-3">
+          Drive Slowly. It is very Foggy out there. Use Fog Lights.
+        </div>
+
+        <button class="btn btn-primary btn-block mt-3" (click)="clickHomePage()">Go to Home Page</button>
+      </div>
+
+      <div *ngIf="isError" class="response-section mt-4">
+        <div class="info-row">
+          <span class="warning-message mt-3">{{ errorMessage }}</span>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 </div>
 
 <!-- Import Bootstrap JavaScript and jQuery (optional) -->
