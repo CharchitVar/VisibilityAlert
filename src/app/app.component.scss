@@ -1,0 +1,56 @@
+body {
+  background-image: url('../assets/image.jpg'); /* Add your background image path here */
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  margin: 0; /* Remove default margin */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Center container vertically */
+}
+
+.app-box {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px; /* Adjust as needed */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.visibility-result {
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.compass {
+  font-size: 32px;
+  margin-top: 10px;
+}
+
+.warning-message {
+  font-size: 18px;
+  color: #ffcc00; /* Yellow color for warnings */
+}
+
+/* Style the button with a golden color */
+.btn-primary {
+  background-color: #FFD700 !important; /* Golden color */
+  border: none;
+  color: white;
+}
+
+/* Hover effect for the button */
+.btn-primary:hover {
+  background-color: #FFC800 !important; /* Slightly lighter golden color on hover */
+}
+
+/* Adjust the button width for responsiveness */
+.btn-primary.btn-block {
+  width: 100%;
+}

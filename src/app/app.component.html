@@ -6,69 +6,10 @@
   <title>Track Road Visibility App</title>
 
   <!-- Import Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-  <!-- Import Font Awesome for the compass icon (you can use other icon libraries if preferred) -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
+ 
   <!-- Custom CSS -->
   <style>
-body {
-      background-image: url('../assets/pexels-alex-andrews-1203808.jpg'); /* Add your background image path here */
-      background-size: cover;
-      background-repeat: no-repeat;
-      color: white;
-      margin: 0; /* Remove default margin */
-    }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh; /* Center container vertically */
-    }
-
-    .app-box {
-      background-color: rgba(0, 0, 0, 0.5);
-      width: 100%;
-      max-width: 400px; /* Adjust as needed */
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .visibility-result {
-      font-size: 24px;
-      margin-top: 20px;
-    }
-
-    .compass {
-      font-size: 32px;
-      margin-top: 10px;
-    }
-
-    .warning-message {
-      font-size: 18px;
-      color: #ffcc00; /* Yellow color for warnings */
-    }
-
-    /* Style the button with a golden color */
-    .btn-primary {
-      background-color: #FFD700 !important; /* Golden color */
-      border: none;
-      color: white;
-    }
-
-    /* Hover effect for the button */
-    .btn-primary:hover {
-      background-color: #FFC800 !important; /* Slightly lighter golden color on hover */
-    }
-
-    /* Adjust the button width for responsiveness */
-    .btn-primary.btn-block {
-      width: 100%;
-    }
   </style>
 </head>
 <body>
@@ -112,8 +53,15 @@ body {
         <div *ngIf="visibility < 11" class="warning-message mt-3">
           Drive Slowly. It is very Foggy out there. Use Fog Lights.
         </div>
+        <audio id="myAudio">
+          <source src="../assets/Sound.mpeg" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        
 
         <button class="btn btn-primary btn-block mt-3" (click)="clickHomePage()">Go to Home Page</button>
+        <!-- <button class="btn btn-primary btn-block mt-3" (click)="playAudio()">Play Message</button>
+        <button class="btn btn-primary btn-block mt-3" (click)="pauseAudio()">Pause Message</button> -->
       </div>
 
       <div *ngIf="isError" class="response-section mt-4">
@@ -124,11 +72,6 @@ body {
     </ng-template>
   </div>
 </div>
-
-<!-- Import Bootstrap JavaScript and jQuery (optional) -->
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
 </body>
 </html>

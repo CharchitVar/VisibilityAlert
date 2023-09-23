@@ -80,6 +80,16 @@ export class AppComponent {
     });
   }
 
+  playAudio() {
+    const audio = document.getElementById('myAudio') as HTMLAudioElement;
+    audio.play();
+  }
+
+  pauseAudio() {
+    const audio = document.getElementById('myAudio') as HTMLAudioElement;
+    audio.pause();
+  }
+
   getDirectionFromAlpha(alpha: number): string {
     if (alpha >= 0 && alpha < 45) {
       return 'North';
@@ -101,6 +111,9 @@ export class AppComponent {
       console.log(response);
       this.firstResponseCame = true;
       this.visibility = response.visibility/1000;
+      if(this.visibility < 11){
+        this.playAudio();
+      }
       this.areaName = response.name;
       window.removeEventListener('deviceorientation',()=>{
 
